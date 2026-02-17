@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import static frc.robot.Constants.OperatorConstants;
 
 import static edu.wpi.first.units.Units.*;
 
@@ -31,7 +30,7 @@ public class ExampleSubsystem extends SubsystemBase {
  private SmartMotorControllerConfig smcConfig = new SmartMotorControllerConfig(this)
   .withControlMode(ControlMode.CLOSED_LOOP)
   // Feedback Constants (PID Constants)
-  .withClosedLoopController(50, 0, 0, DegreesPerSecond.of(90), DegreesPerSecondPerSecond.of(45))
+  .withClosedLoopController(80, 0, 0, DegreesPerSecond.of(90), DegreesPerSecondPerSecond.of(45))
   .withSimClosedLoopController(50, 0, 0, DegreesPerSecond.of(90), DegreesPerSecondPerSecond.of(45))
   // Feedforward Constants
   .withFeedforward(new ArmFeedforward(0, 0.1, 0))
@@ -45,22 +44,23 @@ public class ExampleSubsystem extends SubsystemBase {
   // Motor properties to prevent over currenting.
   .withMotorInverted(false)
   .withIdleMode(MotorMode.BRAKE)
-  .withStatorCurrentLimit(Amps.of(40))
+  .withStatorCurrentLimit(Amps.of(30))
   .withClosedLoopRampRate(Seconds.of(0.25))
   .withOpenLoopRampRate(Seconds.of(0.25));
  
   private TalonFX swingTalonPrimary = new TalonFX(0, new CANBus());
   //final TalonFX swingTalonSecondary = new TalonFX(TALONFX_1);
 
+  //private SmartMotorController talonControllerPrimary = new TalonFXSWrapper(swingTalonPrimary, DCMotor.getKrakenX60(1), smcConfig); 
   private SmartMotorController talonControllerPrimary = new TalonFXWrapper(swingTalonPrimary, DCMotor.getKrakenX60(1), smcConfig); 
   
   private ArmConfig armCfg = new ArmConfig(talonControllerPrimary)
   // Soft limit is applied to the SmartMotorControllers PID
-  .withSoftLimits(Degrees.of(-20), Degrees.of(10))
+  //.withSoftLimits(Degrees.of(-20), Degrees.of(10))
   // Hard limit is applied to the simulation.
   //.withHardLimit(Degrees.of(-30), Degrees.of(40))
   // Starting position is where your arm starts
-  .withStartingPosition(Degrees.of(-5))
+  .withStartingPosition(Degrees.of(0))
   // Length and mass of your arm for sim.
   .withLength(Feet.of(.5))
   .withMass(Pounds.of(.1))
