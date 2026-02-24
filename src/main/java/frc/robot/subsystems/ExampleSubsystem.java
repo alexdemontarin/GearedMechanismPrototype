@@ -30,17 +30,17 @@ public class ExampleSubsystem extends SubsystemBase {
  private SmartMotorControllerConfig smcConfig = new SmartMotorControllerConfig(this)
   .withControlMode(ControlMode.CLOSED_LOOP)
   // Feedback Constants (PID Constants)
-  .withClosedLoopController(80, 0, 0, DegreesPerSecond.of(90), DegreesPerSecondPerSecond.of(45))
-  .withSimClosedLoopController(50, 0, 0, DegreesPerSecond.of(90), DegreesPerSecondPerSecond.of(45))
+  .withClosedLoopController(1, 0, 0, DegreesPerSecond.of(15), DegreesPerSecondPerSecond.of(15))
+  .withSimClosedLoopController(1, 0, 0, DegreesPerSecond.of(15), DegreesPerSecondPerSecond.of(15))
   // Feedforward Constants
-  .withFeedforward(new ArmFeedforward(0, 0.1, 0))
+  .withFeedforward(new ArmFeedforward(0, 0, 0))
   .withSimFeedforward(new ArmFeedforward(0, 0, 0))
   // Telemetry name and verbosity level
   .withTelemetry("ArmMotor", TelemetryVerbosity.HIGH)
   // Gearing from the motor rotor to final shaft.
   // In this example GearBox.fromReductionStages(3,4) is the same as GearBox.fromStages("3:1","4:1") which corresponds to the gearbox attached to your motor.
   // You could also use .withGearing(12) which does the same thing.
-  .withGearing(new MechanismGearing(GearBox.fromStages("28:50","14:60","29:60")))
+  .withGearing(new MechanismGearing(GearBox.fromStages("29:50","14:60","28:60")))
   // Motor properties to prevent over currenting.
   .withMotorInverted(false)
   .withIdleMode(MotorMode.BRAKE)

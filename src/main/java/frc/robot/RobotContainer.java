@@ -33,7 +33,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    m_exampleSubsystem.setDefaultCommand(m_exampleSubsystem.setAngle(Degrees.of(0)));
+    m_exampleSubsystem.setDefaultCommand(m_exampleSubsystem.set(0));
   }
 
   /**
@@ -49,8 +49,8 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.a().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(60)));
-    m_driverController.b().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(-60)));
+    m_driverController.a().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(0)));
+    m_driverController.b().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(90)));
 
     m_driverController.x().whileTrue(m_exampleSubsystem.set(0.3));
     m_driverController.y().whileTrue(m_exampleSubsystem.set(-0.3));
