@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.ExampleSubsystem;
 
+import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Degrees;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,7 +34,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    m_exampleSubsystem.setDefaultCommand(m_exampleSubsystem.set(0));
+    //m_exampleSubsystem.setDefaultCommand(m_exampleSubsystem.set(0));
   }
 
   /**
@@ -49,11 +50,12 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-   // m_driverController.a().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(0)));
-   // m_driverController.b().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(90)));
+    m_driverController.a().onTrue(m_exampleSubsystem.setAngleAndStop(Degrees.of(90), Degrees.of(3)));
 
     m_driverController.x().whileTrue(m_exampleSubsystem.set(0.3));
+    m_driverController.x().whileFalse(m_exampleSubsystem.set(0));
     m_driverController.y().whileTrue(m_exampleSubsystem.set(-0.3));
+    m_driverController.y().whileFalse(m_exampleSubsystem.set(0));
   }
 
   /**

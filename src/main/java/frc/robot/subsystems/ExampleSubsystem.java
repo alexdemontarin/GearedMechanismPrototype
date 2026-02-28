@@ -66,16 +66,14 @@ public class ExampleSubsystem extends SubsystemBase {
   
   private ArmConfig armCfg = new ArmConfig(talonControllerPrimary)
   // Soft limit is applied to the SmartMotorControllers PID
-  //.withSoftLimits(Degrees.of(-20), Degrees.of(10))
+  //.withSoftLimits(Degrees.of(-180), Degrees.of(180))
   // Hard limit is applied to the simulation.
   //.withHardLimit(Degrees.of(-30), Degrees.of(40))
   // Starting position is where your arm starts
-  //.withStartingPosition(Degrees.of(0))
+  .withStartingPosition(Degrees.of(0))
   // Length and mass of your arm for sim.
   .withLength(Feet.of(.5))
-  .withMass(Pounds.of(.1))
-  // Telemetry name and verbosity for the arm.
-  .withTelemetry("Arm", TelemetryVerbosity.HIGH);
+  .withMass(Pounds.of(.1));
 
   // Arm Mechanism
   private Arm arm = new Arm(armCfg);
@@ -97,22 +95,22 @@ public class ExampleSubsystem extends SubsystemBase {
         });
   }
 
- /**
-   * Set the angle of the arm, does not stop when the arm reaches the setpoint.
-   * @param angle Angle to go to.
-   * @return A command.
-   */
-  public Command setAngle(Angle angle) { return arm.run(angle);}
-
   /**
    * Move the arm up and down.
    * @param dutycycle [-1, 1] speed to set the arm too.
    */
   public Command set(double dutycycle) { return arm.set(dutycycle);}
+ /**
+   * Set the angle of the arm, ends the command but does not stop the arm when the arm reaches the setpoint.
+   * @param angle Angle to go to.
+   * @return A Command
+   */
+  public Command setAngleAndStop(Angle angle, Angle tolerance) { return arm.runTo(angle, tolerance);}
 
   /**
    * Run sysId on the {@link Arm}
    */
+
   public Command sysId() { return arm.sysId(Volts.of(7), Volts.of(2).per(Second), Seconds.of(4));}
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
