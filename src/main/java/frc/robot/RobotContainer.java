@@ -47,10 +47,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.a().onTrue(m_exampleSubsystem.setAngleAndStop(Degrees.of(90), Degrees.of(3)));
+    m_driverController.a().whileTrue(m_exampleSubsystem.setAngleAndStop(Degrees.of(90), Degrees.of(3)));
 
     m_driverController.x().whileTrue(m_exampleSubsystem.set(0.3));
     m_driverController.x().whileFalse(m_exampleSubsystem.set(0));
