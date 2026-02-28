@@ -46,7 +46,7 @@ public class ExampleSubsystem extends SubsystemBase {
   .withFeedforward(new ArmFeedforward(0, 0, 0))
   .withSimFeedforward(new ArmFeedforward(0, 0, 0))
   // Telemetry name and verbosity level
-  .withTelemetry("ArmMotor", TelemetryVerbosity.HIGH)
+  .withTelemetry("ArmMotor", motorTelemetryConfig)
   // Gearing from the motor rotor to final shaft.
   // In this example GearBox.fromReductionStages(3,4) is the same as GearBox.fromStages("3:1","4:1") which corresponds to the gearbox attached to your motor.
   // You could also use .withGearing(12) which does the same thing.
@@ -70,7 +70,7 @@ public class ExampleSubsystem extends SubsystemBase {
   // Hard limit is applied to the simulation.
   //.withHardLimit(Degrees.of(-30), Degrees.of(40))
   // Starting position is where your arm starts
-  .withStartingPosition(Degrees.of(0))
+  //.withStartingPosition(Degrees.of(0))
   // Length and mass of your arm for sim.
   .withLength(Feet.of(.5))
   .withMass(Pounds.of(.1))
