@@ -24,9 +24,19 @@ import yams.motorcontrollers.SmartMotorControllerConfig.ControlMode;
 import yams.motorcontrollers.SmartMotorControllerConfig.MotorMode;
 import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
 import yams.motorcontrollers.remote.TalonFXWrapper;
+import yams.telemetry.SmartMotorControllerTelemetryConfig;
 
 public class ExampleSubsystem extends SubsystemBase {
  
+ SmartMotorControllerTelemetryConfig motorTelemetryConfig = new SmartMotorControllerTelemetryConfig()
+  .withMechanismPosition()
+  .withMechanismVelocity()
+  .withRotorPosition()
+  .withRotorVelocity()
+  .withOutputVoltage()
+  .withStatorCurrent()
+  .withTelemetryVerbosity(TelemetryVerbosity.HIGH);
+
  private SmartMotorControllerConfig smcConfig = new SmartMotorControllerConfig(this)
   .withControlMode(ControlMode.CLOSED_LOOP)
   // Feedback Constants (PID Constants)
@@ -36,7 +46,7 @@ public class ExampleSubsystem extends SubsystemBase {
   .withFeedforward(new ArmFeedforward(0, 0, 0))
   .withSimFeedforward(new ArmFeedforward(0, 0, 0))
   // Telemetry name and verbosity level
-  .withTelemetry("ArmMotor", TelemetryVerbosity.HIGH)
+  .withTelemetry("ArmMotor", motorTelemetryConfig)
   // Gearing from the motor rotor to final shaft.
   // In this example GearBox.fromReductionStages(3,4) is the same as GearBox.fromStages("3:1","4:1") which corresponds to the gearbox attached to your motor.
   // You could also use .withGearing(12) which does the same thing.
