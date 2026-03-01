@@ -48,10 +48,14 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_driverController.a().whileTrue(m_exampleSubsystem.setAngleAndStop(Degrees.of(90), Degrees.of(3)));
+    m_driverController.a().whileFalse(m_exampleSubsystem.set(0));
 
-    m_driverController.x().whileTrue(m_exampleSubsystem.set(0.3));
+    m_driverController.b().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(-90)));
+    m_driverController.b().whileFalse(m_exampleSubsystem.set(0));
+
+    m_driverController.x().whileTrue(m_exampleSubsystem.set(.3));
     m_driverController.x().whileFalse(m_exampleSubsystem.set(0));
-    m_driverController.y().whileTrue(m_exampleSubsystem.set(-0.3));
+    m_driverController.y().whileTrue(m_exampleSubsystem.set(-.3));
     m_driverController.y().whileFalse(m_exampleSubsystem.set(0));
   }
 
