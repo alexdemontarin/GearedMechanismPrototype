@@ -26,7 +26,7 @@ import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
 import yams.motorcontrollers.remote.TalonFXWrapper;
 import yams.telemetry.SmartMotorControllerTelemetryConfig;
 
-public class ExampleSubsystem extends SubsystemBase {
+public class ArmSubsystem extends SubsystemBase {
  
  SmartMotorControllerTelemetryConfig motorTelemetryConfig = new SmartMotorControllerTelemetryConfig()
   .withMechanismPosition()
@@ -80,21 +80,7 @@ public class ExampleSubsystem extends SubsystemBase {
   private Arm arm = new Arm(armCfg);
 
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
-
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() { 
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
-  }
+  public ArmSubsystem() {}
 
   /**
    * Move the arm up and down.

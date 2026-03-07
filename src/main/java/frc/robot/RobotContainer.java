@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
+
+import frc.robot.commands.Arm90;
 
 import static edu.wpi.first.units.Units.Degrees;
 
@@ -22,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -33,7 +35,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    //m_exampleSubsystem.setDefaultCommand(m_exampleSubsystem.set(0));
+    //m_ArmSubsystem.setDefaultCommand(m_ArmSubsystem.setAngle(Degrees.of(0)));
   }
 
   /**
@@ -46,16 +48,24 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_driverController.a().whileTrue(m_exampleSubsystem.setAngleAndStop(Degrees.of(90), Degrees.of(3)));
-    m_driverController.a().whileFalse(m_exampleSubsystem.set(0));
+    m_driverController.a().whileTrue(m_ArmSubsystem.setAngleAndStop(Degrees.of(90), Degrees.of(3)));
+    m_driverController.a().whileFalse(m_ArmSubsystem.set(0));
 
-    m_driverController.b().whileTrue(m_exampleSubsystem.setAngle(Degrees.of(-90)));
-    m_driverController.b().whileFalse(m_exampleSubsystem.set(0));
+    m_driverController.b().whileTrue(m_ArmSubsystem.setAngle(Degrees.of(-90)));
+    m_driverController.b().whileFalse(m_ArmSubsystem.set(0));
 
-    m_driverController.x().whileTrue(m_exampleSubsystem.set(.3));
-    m_driverController.x().whileFalse(m_exampleSubsystem.set(0));
-    m_driverController.y().whileTrue(m_exampleSubsystem.set(-.3));
-    m_driverController.y().whileFalse(m_exampleSubsystem.set(0));
+    //m_driverController.leftBumper().toggleOnTrue(m_ArmSubsystem.setAngle(Degrees.of(-90)));
+    //m_driverController.leftBumper().toggleOnFalse(m_ArmSubsystem.setAngle(Degrees.of(0)));
+    m_driverController.rightBumper().onTrue(m_ArmSubsystem.setAngle(Degrees.of(-90)));
+    m_driverController.rightBumper().onFalse(m_ArmSubsystem.setAngle(Degrees.of(0)));
+
+    m_driverController.x().whileTrue(m_ArmSubsystem.set(.3));
+    m_driverController.x().whileFalse(m_ArmSubsystem.set(0));
+  
+    m_driverController.y().whileTrue(m_ArmSubsystem.set(-.3));
+    m_driverController.y().whileFalse(m_ArmSubsystem.set(0));
+
+    m_driverController.leftBumper().whileTrue(new Arm90(m_ArmSubsystem, 90));
   }
 
   /**
@@ -65,6 +75,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return Autos.exampleAuto(m_ArmSubsystem, 90);
   }
 }

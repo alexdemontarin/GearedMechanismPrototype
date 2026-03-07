@@ -4,36 +4,49 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import static edu.wpi.first.units.Units.Degrees;
+//import static edu.wpi.first.units.Units.Angle;
+
+import java.lang.management.ManagementFactory;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ArmSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends Command {
+public class Arm90 extends Command {
   @SuppressWarnings("PMD.UnusedPrivateField")
-  private final ExampleSubsystem m_subsystem;
+  private final ArmSubsystem subsystem;
+  private final double angle;
 
   /**
-   * Creates a new ExampleCommand.
+   * CONSTRUCTOR
+   * Creates a new Arm90.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public Arm90(ArmSubsystem subsystem, double angle) {
+    this.subsystem = subsystem;
+    this.angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("Arm90 Init " + subsystem.getName());
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    System.out.println("Arm90 Exec " + angle);
+    this.subsystem.setAngle(Degrees.of(90));
+    }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {subsystem.setAngle(Degrees.of(0));}
 
   // Returns true when the command should end.
   @Override
