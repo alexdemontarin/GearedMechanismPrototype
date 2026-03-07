@@ -66,6 +66,7 @@ public class RobotContainer {
     m_driverController.y().whileFalse(m_ArmSubsystem.set(0));
 
     m_driverController.leftBumper().whileTrue(new Arm90(m_ArmSubsystem, 90));
+    m_driverController.leftBumper().whileFalse(new Arm90(m_ArmSubsystem, 0));
   }
 
   /**

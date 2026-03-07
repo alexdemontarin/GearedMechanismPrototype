@@ -41,12 +41,13 @@ public class Arm90 extends Command {
   @Override
   public void execute() {
     System.out.println("Arm90 Exec " + angle);
-    this.subsystem.setAngle(Degrees.of(90));
-    }
+    subsystem.setAngle(Degrees.of(angle)).schedule();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {subsystem.setAngle(Degrees.of(0));}
+  public void end(boolean interrupted) {subsystem.setAngle(Degrees.of(0)).schedule();
+    }
 
   // Returns true when the command should end.
   @Override
